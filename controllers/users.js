@@ -20,6 +20,8 @@ const search = (req, res) => {
 }
 
 const update = (req, res) => {
+    // allows user to update any field, using id
+    // DO NOT USE FOR TO UPDATE OR RESET PASSWORDS
     const {id} = req.params
     pool.query(`UPDATE users SET ? WHERE id = ?`,
         [req.body, id],
@@ -29,6 +31,8 @@ const update = (req, res) => {
 }
 
 const remove = (req, res) => {
+    // deletes user from database by ID.
+    // CANNOT BE UNDONE
     const {id} = req.params
     pool.query(`DELETE FROM users WHERE id = ?`,
         [id],

@@ -7,6 +7,7 @@ router.get('/', usersControllers.list)
 router.get('/:name', usersControllers.search)
 
 // router.post()
+// Shouldn't need a creation route, since it's handled in signin
 
 router.put('/:id', usersControllers.update)
 
