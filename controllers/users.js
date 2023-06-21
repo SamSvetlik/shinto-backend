@@ -19,6 +19,16 @@ const search = (req, res) => {
     })
 }
 
+const admin = (req, res) => {
+    console.log("pinging admin")
+    pool.query(`SELECT * FROM users WHERE isAdmin = 1`, (err, rows, fields) => {
+        if (err) {
+            res.sendStatus(404)
+        }
+        else res.json(rows)
+    })
+}
+
 const update = (req, res) => {
     // allows user to update any field, using id
     // DO NOT USE FOR TO UPDATE OR RESET PASSWORDS
@@ -44,6 +54,7 @@ const remove = (req, res) => {
 module.exports = {
     list,
     search,
+    admin,
     update,
     remove
 }

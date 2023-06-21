@@ -17,9 +17,6 @@ const show = (req, res) => {
 
 const create = async (req, res) => {
     const { eventName, eventDescription, hostId, eventTime } = req.body
-    const dateObj = new Date(eventTime)
-    const formattedTime = dateObj.toISOString().slice(0, 19).replace('T', ' ')
-    console.log(formattedTime)
     pool.query('INSERT INTO events (id, eventName, eventDescription, hostId, eventTime) VALUES (?, ?, ?, ?, ?)',
     [null, eventName, eventDescription, hostId, eventTime],
     (err, results, fields) => {
@@ -27,8 +24,31 @@ const create = async (req, res) => {
     })
 }
 
+const update = (req, res) => {
+    // allows user to update any field, using event id
+    const {id} = req.params
+    pool.query(`UPDATE events SET ? WHERE id = ?`,
+        [req.body, id],
+        (err, results, fields) => {
+            res.json(results)
+    })
+}
+
+const remove = (req, res) => {
+    // deletes event from database by ID.
+    // CANNOT BE UNDONE
+    const {id} = req.params
+    pool.query(`DELETE FROM events WHERE id = ?`,
+        [id],
+        (err, results, fields)=> {
+            res.json(results)
+        })
+}
+
 module.exports = {
     list,
     show,
-    create
+    create,
+    update,
+    remove
 }

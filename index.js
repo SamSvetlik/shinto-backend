@@ -20,8 +20,9 @@ app.get("/", (req, res)=> {
     })
 })
 
-app.get("/users", (req, res) => {
-    pool.query("SELECT * FROM users", (err, rows, fields) => {
+
+app.get("/admin", (req, res) => {
+    pool.query("SELECT * FROM users WHERE isAdmin = 1", (err, rows, fields) => {
         res.json(rows)
     })
 })
