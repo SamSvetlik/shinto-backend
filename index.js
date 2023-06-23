@@ -1,3 +1,5 @@
+// live version at https://shinto-backend.vercel.app/
+// to update live version, use npx vercel --prod
 const express = require('express')
 require('dotenv').config()
 const app = express()
